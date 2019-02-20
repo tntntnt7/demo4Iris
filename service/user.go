@@ -1,7 +1,7 @@
 package service
 
 import (
-	. "gowork/models"
+	. "demo4Iris/models"
 )
 
 func GetUserById(id string) (u User) {

@@ -1,25 +1,13 @@
 package routes
 
 import (
-	"github.com/kataras/iris"
-	"github.com/kataras/iris/middleware/logger"
-	"github.com/kataras/iris/middleware/recover"
+	"demo4Iris/controller"
 
-	"gowork/controller"
+	. "demo4Iris/common/config"
 )
 
-var App *iris.Application
-
-func init()  {
-	App = iris.New()
-	App.Logger().SetLevel("debug")
-	App.Use(recover.New())
-	App.Use(logger.New())
-
-	initRoute()
-}
-
-func initRoute() {
+func InitRoute() {
+	// user
 	user := App.Party("user")
 	user.Get("/", controller.GetUser)
 }

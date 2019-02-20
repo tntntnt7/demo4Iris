@@ -2,10 +2,16 @@ package main
 
 import (
 	"github.com/kataras/iris"
-	"gowork/common/config"
-	. "gowork/routes"
+
+	. "demo4Iris/common/config"
+	. "demo4Iris/routes"
 )
 
+func init() {
+	InitApp()
+	InitRoute()
+}
+
 func main() {
-	App.Run(iris.Addr(":" + config.Config.Port), iris.WithConfiguration(iris.YAML("./common/config/iris.yml")))
+	App.Run(iris.Addr(":" + Config.Port))
 }

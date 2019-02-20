@@ -2,7 +2,8 @@ package controller
 
 import (
 	"github.com/kataras/iris"
-	. "gowork/service"
+
+	. "demo4Iris/service"
 )
 
 func GetUser(ctx iris.Context) {
