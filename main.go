@@ -8,10 +8,11 @@ import (
 )
 
 func init() {
+	InitConfig()
 	InitApp()
 	InitRoute()
 }
 
 func main() {
-	App.Run(iris.Addr(":" + Config.Port))
+	App.Run(iris.Addr(":" + Config.App.Port))
 }

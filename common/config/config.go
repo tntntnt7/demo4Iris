@@ -12,17 +12,21 @@ import (
 	"path/filepath"
 )
 
-type config struct {
-	Port	string	`yaml:"Port"`
-}
+var App *iris.Application
 
 var Config = config{}
 
-var App *iris.Application
-
 var PathConfig string
 
-func init() {
+type config struct {
+	App	app	`yaml:"App"`
+}
+
+type app struct {
+	Port	string	`yaml:"Port"`
+}
+
+func InitConfig() {
 	// 获取运行时绝对路径
 	file := filepath.Dir(os.Args[0])
 	runPath, _ := filepath.Abs(file)
@@ -36,7 +40,7 @@ func init() {
 	// 读取config.yml
 	yamlFile, err := ioutil.ReadFile(PathConfig)
 	if err != nil {
-		log.Fatalf("config.yml err:", err)
+		log.Fatalf("config.yml err: %v", err)
 	}
 	err = yaml.Unmarshal(yamlFile, &Config)
 	if err != nil {
