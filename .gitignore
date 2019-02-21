@@ -1,4 +1,11 @@
+# OSX
 .DS_Store
+
+# IDE
 .idea
+
+# modules sum
 go.sum
+
+# executable file
 demo4Iris
