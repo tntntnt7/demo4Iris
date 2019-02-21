@@ -11,6 +11,7 @@ func init() {
 	InitConfig()
 	InitApp()
 	InitRoute()
+	InitMongodb()
 }
 
 func main() {
