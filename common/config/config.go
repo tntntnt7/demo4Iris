@@ -1,16 +1,21 @@
 package config
 
 import (
+	//"context"
+	"github.com/mongodb/mongo-go-driver/mongo/readpref"
+	utils2 "github.com/tntntnt7/demo4Iris/common/utils"
+	"io/ioutil"
+	"log"
+	"os"
+	"path/filepath"
+	//"time"
+
 	"github.com/astaxie/beego/utils"
 	"github.com/kataras/iris"
 	"github.com/kataras/iris/middleware/logger"
 	"github.com/kataras/iris/middleware/recover"
 	"github.com/mongodb/mongo-go-driver/mongo"
 	"gopkg.in/yaml.v2"
-	"io/ioutil"
-	"log"
-	"os"
-	"path/filepath"
 )
 
 var App *iris.Application
@@ -20,11 +25,12 @@ var Config = config{}
 var Mongo *mongo.Client
 
 type config struct {
-	App	app	`yaml:"App"`
-}
+	Port string		`yaml:"Port"`
 
-type app struct {
-	Port	string	`yaml:"Port"`
+	Mongodb struct {
+		Host string `yaml:"Host"`
+		Port string `yaml:"Port"`
+	}	`yaml:"Mongodb"`
 }
 
 func InitConfig() {
@@ -45,6 +51,8 @@ func InitConfig() {
 	if err != nil {
 		log.Fatalf("Unmarshal: %v", err)
 	}
+
+	log.Println("config => ", Config)
 }
 
 func InitApp() {
@@ -55,11 +63,16 @@ func InitApp() {
 }
 
 func InitMongodb() {
+	url := "mongodb://" + Config.Mongodb.Host + ":" + Config.Mongodb.Port
+
 	var err error
-	Mongo, err = mongo.NewClient("mongodb://localhost:27017")
+	//ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx := utils2.GetContext()
+	Mongo, err = mongo.Connect(ctx, url)
+	err = Mongo.Ping(ctx, readpref.Primary())
 	if err != nil {
 		log.Fatalf("!!! mongodb connect error: %v", err)
 	} else {
-		log.Println("mongodb://localhost:27017 connect connected successfully!")
+		log.Println(url + "	connect connected successfully!")
 	}
 }

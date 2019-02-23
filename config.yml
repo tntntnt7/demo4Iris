@@ -1,2 +1,5 @@
-APP:
-  Port: 9900
+Port: 9900
+
+Mongodb:
+  Host: 127.0.0.1
+  Port: 27017

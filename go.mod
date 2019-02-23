@@ -1,4 +1,15 @@
-module demo4Iris
+module github.com/tntntnt7/demo4Iris
+
+replace (
+	cloud.google.com/go => github.com/GoogleCloudPlatform/google-cloud-go v0.36.0
+	golang.org/x/crypto => github.com/golang/crypto v0.0.0-20190219172222-a4c6cb3142f2
+	golang.org/x/net => github.com/golang/net v0.0.0-20190213061140-3a22650c66bd
+	golang.org/x/sync => github.com/golang/sync v0.0.0-20181221193216-37e7f081c4d4
+	golang.org/x/sys => github.com/golang/sys v0.0.0-20190220154126-629670e5acc5
+	golang.org/x/text => github.com/golang/text v0.3.0
+	golang.org/x/tools => github.com/golang/tools v0.0.0-20190221000707-a754db16a40a
+	google.golang.org/appengine => github.com/golang/appengine v1.4.0
+)
 
 require (
 	github.com/BurntSushi/toml v0.3.1 // indirect
@@ -12,23 +23,20 @@ require (
 	github.com/flosch/pongo2 v0.0.0-20181225140029-79872a7b2769 // indirect
 	github.com/gavv/monotime v0.0.0-20171021193802-6f8212e8d10d // indirect
 	github.com/go-stack/stack v1.8.0 // indirect
+	github.com/google/go-cmp v0.2.0 // indirect
 	github.com/google/go-querystring v1.0.0 // indirect
-	github.com/gopherjs/gopherjs v0.0.0-20181103185306-d547d1d9531e // indirect
 	github.com/imkira/go-interpol v1.1.0 // indirect
 	github.com/iris-contrib/blackfriday v2.0.0+incompatible // indirect
 	github.com/iris-contrib/formBinder v0.0.0-20190104093907-fbd5963f41e1 // indirect
 	github.com/iris-contrib/go.uuid v2.0.0+incompatible // indirect
-	github.com/iris-contrib/httpexpect v0.0.0-20180314041918-ebe99fcebbce // indirect
 	github.com/json-iterator/go v1.1.5 // indirect
-	github.com/jtolds/gls v4.2.1+incompatible // indirect
 	github.com/k0kubun/colorstring v0.0.0-20150214042306-9440f1994b88 // indirect
 	github.com/kataras/golog v0.0.0-20180321173939-03be10146386 // indirect
 	github.com/kataras/iris v11.1.1+incompatible
 	github.com/kataras/pio v0.0.0-20190103105442-ea782b38602d // indirect
 	github.com/klauspost/compress v1.4.1 // indirect
 	github.com/klauspost/cpuid v1.2.0 // indirect
-	github.com/mattn/go-colorable v0.1.0 // indirect
-	github.com/mattn/go-isatty v0.0.4 // indirect
+	github.com/mattn/go-colorable v0.1.1 // indirect
 	github.com/microcosm-cc/bluemonday v1.0.2 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.1 // indirect
@@ -39,9 +47,9 @@ require (
 	github.com/ryanuber/columnize v2.1.0+incompatible // indirect
 	github.com/sergi/go-diff v1.0.0 // indirect
 	github.com/shurcooL/sanitized_anchor_name v1.0.0 // indirect
-	github.com/smartystreets/assertions v0.0.0-20190215210624-980c5ac6f3ac // indirect
-	github.com/smartystreets/goconvey v0.0.0-20181108003508-044398e4856c // indirect
+	github.com/smartystreets/goconvey v0.0.0-20190222223459-a17d461953aa // indirect
 	github.com/stretchr/testify v1.3.0 // indirect
+	github.com/tidwall/pretty v0.0.0-20180105212114-65a9db5fad51 // indirect
 	github.com/xdg/scram v0.0.0-20180814205039-7eeb5667e42c // indirect
 	github.com/xdg/stringprep v1.0.0 // indirect
 	github.com/xeipuuv/gojsonpointer v0.0.0-20180127040702-4e3ac2762d5f // indirect
@@ -52,15 +60,4 @@ require (
 	github.com/yudai/golcs v0.0.0-20170316035057-ecda9a501e82 // indirect
 	github.com/yudai/pp v2.0.1+incompatible // indirect
 	gopkg.in/yaml.v2 v2.2.2
-)
-
-replace (
-	cloud.google.com/go => github.com/GoogleCloudPlatform/google-cloud-go v0.36.0
-	golang.org/x/crypto => github.com/golang/crypto v0.0.0-20190219172222-a4c6cb3142f2
-	golang.org/x/net => github.com/golang/net v0.0.0-20190213061140-3a22650c66bd
-	golang.org/x/sync => github.com/golang/sync v0.0.0-20181221193216-37e7f081c4d4
-	golang.org/x/sys => github.com/golang/sys v0.0.0-20190220154126-629670e5acc5
-	golang.org/x/text => github.com/golang/text v0.3.0
-	golang.org/x/tools => github.com/golang/tools v0.0.0-20190221000707-a754db16a40a
-	google.golang.org/appengine => github.com/golang/appengine v1.4.0
 )

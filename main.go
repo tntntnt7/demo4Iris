@@ -2,18 +2,20 @@ package main
 
 import (
 	"github.com/kataras/iris"
+	"log"
 
-	. "demo4Iris/common/config"
-	. "demo4Iris/routes"
+	. "github.com/tntntnt7/demo4Iris/common/config"
+	. "github.com/tntntnt7/demo4Iris/routes"
 )
 
 func init() {
 	InitConfig()
+	InitMongodb()
 	InitApp()
 	InitRoute()
-	InitMongodb()
 }
 
 func main() {
-	App.Run(iris.Addr(":" + Config.App.Port))
+	log.Println("Port => ", Config.Port)
+	App.Run(iris.Addr(":" + Config.Port))
 }
