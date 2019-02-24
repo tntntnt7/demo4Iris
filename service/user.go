@@ -6,15 +6,8 @@ import (
 	. "github.com/mongodb/mongo-go-driver/mongo"
 	. "github.com/tntntnt7/demo4Iris/common/config"
 	"github.com/tntntnt7/demo4Iris/common/utils"
-	//"github.com/tntntnt7/demo4Iris/models"
 	"log"
 )
-
-//var userRep *Collection
-//
-//func init() {
-//	userRep = Mongo.Database("demo4Iris").Collection("user")
-//}
 
 func UserSignUp(user *bson.M) interface{} {
 	insertOneRes, err := userRep().InsertOne(utils.GetContext(), user)
