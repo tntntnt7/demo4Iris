@@ -6,7 +6,7 @@ import (
 	. "github.com/mongodb/mongo-go-driver/mongo"
 	. "github.com/tntntnt7/demo4Iris/common/config"
 	"github.com/tntntnt7/demo4Iris/common/utils"
-	"github.com/tntntnt7/demo4Iris/models"
+	//"github.com/tntntnt7/demo4Iris/models"
 	"log"
 )
 
@@ -16,7 +16,7 @@ import (
 //	userRep = Mongo.Database("demo4Iris").Collection("user")
 //}
 
-func UserSignUp(user *models.User) interface{} {
+func UserSignUp(user *bson.M) interface{} {
 	insertOneRes, err := userRep().InsertOne(utils.GetContext(), user)
 	if err != nil { log.Fatal(err) }
 
@@ -62,18 +62,24 @@ func GetUsers() (result []bson.M) {
 	return
 }
 
-func UpdateUser(user *models.User) interface{} {
-	oid, _ := primitive.ObjectIDFromHex(user.Id)
+func UpdateUser(user bson.M) interface{} {
+	var oid primitive.ObjectID
+	id, ok := user["_id"].(string)
+	if ok {
+		oid, _ = primitive.ObjectIDFromHex(id)
+	}
 
 	updateOneRes, err := userRep().UpdateOne(
 		utils.GetContext(),
 		bson.M{"_id": oid},
-		bson.M{"$set": bson.M{
-			"Name": user.Name,
-			"Password": user.Password,
-			"Age": user.Age,
-			"Gender": user.Gender,
-		}},
+		bson.M{"$set":
+			bson.M{
+				"Name": user["Name"],
+				"Password": user["Password"],
+				"Age": user["Age"],
+				"Gender": user["Gender"],
+			},
+		},
 	)
 	if err != nil { log.Fatal(err) }
 

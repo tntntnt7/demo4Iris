@@ -2,13 +2,12 @@ package controller
 
 import (
 	"github.com/kataras/iris"
-	"github.com/tntntnt7/demo4Iris/models"
-
+	"github.com/mongodb/mongo-go-driver/bson"
 	"github.com/tntntnt7/demo4Iris/service"
 )
 
 func Register(ctx iris.Context) {
-	user := &models.User{}
+	user := &bson.M{}
 	ctx.ReadJSON(user)
 
 	ctx.JSON(service.UserSignUp(user))
@@ -38,8 +37,8 @@ func GetAllUsers(ctx iris.Context) {
 }
 
 func UpdateUser(ctx iris.Context) {
-	user := &models.User{}
-	ctx.ReadJSON(user)
+	user := bson.M{}
+	ctx.ReadJSON(&user)
 
 	ctx.JSON(service.UpdateUser(user))
 }
