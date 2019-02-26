@@ -8,11 +8,11 @@ import (
 )
 
 func init() {
+	InitLogger()
 	InitConfig()
 	InitMongodb()
 	InitApp()
 	InitRoute()
-	InitLogger()
 }
 
 func main() {

@@ -37,9 +37,19 @@ func (l *Log) Info(s string) {
 	l.L.Println(s)
 }
 
+func (l Log) Infof(s string, v interface{})  {
+	l.L.SetPrefix("INFO    ")
+	l.L.Printf(s, v)
+}
+
 func (l Log) Error(s string) {
 	l.L.SetPrefix("ERROR    ")
 	l.L.Println(s)
+}
+
+func (l Log) Errorf(s string, v interface{})  {
+	l.L.SetPrefix("ERROR    ")
+	l.L.Printf(s, v)
 }
 
 func (l Log) Fatal(s string) {
@@ -47,7 +57,17 @@ func (l Log) Fatal(s string) {
 	l.L.Fatal(s)
 }
 
+func (l Log) Fatalf(s string, v interface{})  {
+	l.L.SetPrefix("FATAL    ")
+	l.L.Fatalf(s, v)
+}
+
 func (l Log) Panic(s string) {
 	l.L.SetPrefix("PANIC    ")
 	l.L.Panic(s)
+}
+
+func (l Log) Panicf(s string, v interface{})  {
+	l.L.SetPrefix("PANIC    ")
+	l.L.Panicf(s, v)
 }

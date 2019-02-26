@@ -1,21 +1,19 @@
 package config
 
 import (
-	//"context"
-	"github.com/mongodb/mongo-go-driver/mongo/readpref"
-	utils2 "github.com/tntntnt7/demo4Iris/common/utils"
 	"io/ioutil"
-	"log"
 	"os"
 	"path/filepath"
-	//"time"
 
 	"github.com/astaxie/beego/utils"
 	"github.com/kataras/iris"
 	"github.com/kataras/iris/middleware/logger"
 	"github.com/kataras/iris/middleware/recover"
 	"github.com/mongodb/mongo-go-driver/mongo"
+	"github.com/mongodb/mongo-go-driver/mongo/readpref"
 	"gopkg.in/yaml.v2"
+
+	. "github.com/tntntnt7/demo4Iris/common/utils"
 )
 
 var App *iris.Application
@@ -45,14 +43,12 @@ func InitConfig() {
 	// 读取config.yml
 	yamlFile, err := ioutil.ReadFile(configPath)
 	if err != nil {
-		log.Fatalf("config.yml err: %v", err)
+		Logger.Fatalf("config.yml err: %v", err)
 	}
 	err = yaml.Unmarshal(yamlFile, &Config)
 	if err != nil {
-		log.Fatalf("Unmarshal: %v", err)
+		Logger.Fatalf("Unmarshal: %v", err)
 	}
-
-	log.Println("config => ", Config)
 }
 
 func InitApp() {
@@ -66,13 +62,12 @@ func InitMongodb() {
 	url := "mongodb://" + Config.Mongodb.Host + ":" + Config.Mongodb.Port
 
 	var err error
-	//ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
-	ctx := utils2.GetContext()
+	ctx := GetContext()
 	Mongo, err = mongo.Connect(ctx, url)
 	err = Mongo.Ping(ctx, readpref.Primary())
 	if err != nil {
-		log.Fatalf("!!! mongodb connect error: %v", err)
+		Logger.Fatalf("!!! mongodb connect error: %v", err)
 	} else {
-		log.Println(url + "	connect connected successfully!")
+		Logger.Info(url + "	connect connected successfully!")
 	}
 }
