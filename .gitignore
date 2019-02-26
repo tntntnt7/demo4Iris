@@ -9,3 +9,6 @@ go.sum
 
 # executable file
 demo4Iris
+
+# logs
+/log/
