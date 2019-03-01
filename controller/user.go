@@ -3,14 +3,15 @@ package controller
 import (
 	"github.com/kataras/iris"
 	"github.com/mongodb/mongo-go-driver/bson"
-	"github.com/tntntnt7/demo4Iris/service"
+
+	"github.com/tntntnt7/demo4Iris/service/user_service"
 )
 
 func Register(ctx iris.Context) {
 	user := &bson.M{}
 	ctx.ReadJSON(user)
 
-	ctx.JSON(service.UserSignUp(user))
+	ctx.JSON(user_service.UserSignUp(user))
 }
 
 func Login(ctx iris.Context) {
@@ -20,18 +21,18 @@ func Login(ctx iris.Context) {
 	}{}
 	ctx.ReadJSON(data)
 
-	ctx.JSON(service.Login(data.Name, data.Password))
+	ctx.JSON(user_service.Login(data.Name, data.Password))
 }
 
 func GetUser(ctx iris.Context) {
 	id := ctx.Params().Get("id")
-	user := service.GetUserById(id)
+	user := user_service.GetUserById(id)
 
 	ctx.JSON(user)
 }
 
 func GetAllUsers(ctx iris.Context) {
-	ret := service.GetUsers()
+	ret := user_service.GetUsers()
 
 	ctx.JSON(ret)
 }
@@ -40,11 +41,11 @@ func UpdateUser(ctx iris.Context) {
 	user := bson.M{}
 	ctx.ReadJSON(&user)
 
-	ctx.JSON(service.UpdateUser(user))
+	ctx.JSON(user_service.UpdateUser(user))
 }
 
 func DeleteUser(ctx iris.Context) {
 	id := ctx.Params().Get("id")
 
-	ctx.JSON(service.DeleteUserById(id))
+	ctx.JSON(user_service.DeleteUserById(id))
 }
