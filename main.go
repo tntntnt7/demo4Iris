@@ -11,6 +11,7 @@ func init() {
 	InitLogger()
 	InitConfig()
 	InitMongodb()
+	InitRedis()
 	InitApp()
 	InitRoute()
 }

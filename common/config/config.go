@@ -1,6 +1,7 @@
 package config
 
 import (
+	"github.com/gomodule/redigo/redis"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -22,6 +23,8 @@ var Config = config{}
 
 var Mongo *mongo.Client
 
+var Cache redis.Conn
+
 type config struct {
 	Port string		`yaml:"Port"`
 
@@ -29,6 +32,11 @@ type config struct {
 		Host string `yaml:"Host"`
 		Port string `yaml:"Port"`
 	}	`yaml:"Mongodb"`
+
+	Redis struct {
+		Host string `yaml:"Host"`
+		Port string `yaml:"Port"`
+	}	`yaml:"Redis"`
 }
 
 func InitConfig() {
@@ -69,5 +77,17 @@ func InitMongodb() {
 		Logger.Fatalf("!!! mongodb connect error: %v", err)
 	} else {
 		Logger.Info(url + "	connect connected successfully!")
+	}
+}
+
+func InitRedis() {
+	url := Config.Redis.Host + ":" + Config.Redis.Port
+
+	var err error
+	Cache, err = redis.Dial("tcp", url)
+	if err != nil {
+		Logger.Fatalf("!!! redis connect error: %v", err)
+	} else {
+		Logger.Info("redis://" + url + "	connect connected successfully!")
 	}
 }

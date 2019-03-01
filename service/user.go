@@ -3,15 +3,20 @@ package service
 import (
 	"github.com/mongodb/mongo-go-driver/bson"
 	"github.com/mongodb/mongo-go-driver/bson/primitive"
-
 	. "github.com/mongodb/mongo-go-driver/mongo"
+	"github.com/tntntnt7/demo4Iris/cache"
 	. "github.com/tntntnt7/demo4Iris/common/config"
 	. "github.com/tntntnt7/demo4Iris/common/utils"
 )
 
+var _userRep *Collection
+
 func userRep() *Collection {
-	_rep := Mongo.Database("demo4Iris").Collection("user")
-	return _rep
+	if _userRep == nil {
+		_userRep = Mongo.Database("demo4Iris").Collection("user")
+	}
+
+	return _userRep
 }
 
 func UserSignUp(user *bson.M) interface{} {
@@ -31,6 +36,7 @@ func Login(name, password string) interface{} {
 		Logger.Error("Login Fail")
 		return HandleErrorResult(err)
 	}
+
 	return HandleSuccessfulResult(user)
 }
 
@@ -49,14 +55,21 @@ func GetUserById(id string) interface{} {
 
 func GetUsers() interface{} {
 	var result []bson.M
-	ctx := GetContext()
 
+	// 读缓存
+	CRet := cache.CGetUsers()
+	if CRet != nil {
+		return CRet
+	}
+
+	ctx := GetContext()
 	cur, err := userRep().Find(GetContext(), bson.D{})
 	if err != nil {
 		Logger.Error("GetUsers Fail")
 		HandleErrorResult(err)
 	}
 	defer cur.Close(ctx)
+
 	for cur.Next(ctx) {
 		var ret bson.M
 		if err = cur.Decode(&ret); err != nil {
@@ -69,6 +82,9 @@ func GetUsers() interface{} {
 		Logger.Error("GetUsers Fail")
 		HandleErrorResult(err)
 	}
+
+	// 写缓存
+	cache.CSaveUsers(result)
 
 	return HandleSuccessfulResult(result)
 }
