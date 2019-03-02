@@ -8,7 +8,7 @@ import (
 func InitRoute() {
 	App.Post("/login", Login)
 	// user
-	user := App.Party("user_cache")
+	user := App.Party("user")
 	user.Get("/{id}", GetUser)
 	user.Get("/all", GetAllUsers)
 	user.Post("/", Register)
