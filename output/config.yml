@@ -5,5 +5,5 @@ Mongodb:
   Port: 27017
 
 Redis:
-  Host: 127.0.0.1
+  Host: redis
   Port: 6379
