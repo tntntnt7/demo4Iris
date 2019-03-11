@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	"github.com/gomodule/redigo/redis"
 	"io/ioutil"
 	"os"
@@ -72,8 +73,10 @@ func InitMongodb() {
 	var err error
 	ctx := GetContext()
 	Mongo, err = mongo.Connect(ctx, url)
+	if err != nil { Logger.Fatalf("!!! mongodb connect error: %v", err) }
 	err = Mongo.Ping(ctx, readpref.Primary())
 	if err != nil {
+		fmt.Printf("!!! mongodb connect error: %v", err)
 		Logger.Fatalf("!!! mongodb connect error: %v", err)
 	} else {
 		Logger.Info(url + "	connect connected successfully!")
