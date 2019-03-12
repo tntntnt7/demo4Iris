@@ -11,6 +11,8 @@ services:
 
   mongodb:
     image: "mongo"
+    volumes:
+      - ./db:/data/db
 
   redis:
     image: "redis"
